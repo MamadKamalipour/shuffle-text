@@ -1,42 +1,36 @@
-const staticEl = document.querySelector('#prefix');
-const prefix = staticEl.textContent;
+const staticEl = document.querySelector("#prefix")
+const prefix = staticEl.textContent
 
-const words = document.querySelector('#words');
+const words = document.querySelector("#words")
 const skills = [
-    '  TypeScript',
-    '  React',
-    '  JavaScript',
-    '  HTML & CSS',
-    '  jQuery',
-    '  Node.js',
-    '  MongoDB',
-    '  PHP & MySQL',
-    '  Passion & love'
-].map(s => `${s}.`);
+    "  TypeScript",
+    "  React",
+    "  JavaScript",
+    "  HTML & CSS",
+    "  jQuery",
+    "  Node.js",
+    "  MongoDB",
+    "  PHP & MySQL",
+    "  Passion & love",
+].map((s) => `${s}.`)
 const delay = 50
 const step = 1
 const tail = 5
 const timeout = 25
 
-
-const p = document.createElement('p')
+const p = document.createElement("p")
 words.appendChild(p)
 
-const colors = [
-
-]
+const colors = []
 
 function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)]
 }
 
-
-
 function getRandomColoredString(n) {
     const fragment = document.createDocumentFragment()
     for (let i = 0; i < n; i++) {
-        const char = document.createElement('span')
-
+        const char = document.createElement("span")
 
         fragment.appendChild(char)
     }
@@ -44,11 +38,11 @@ function getRandomColoredString(n) {
 }
 
 const $ = {
-    text: '',
+    text: "",
 
     skillI: 0,
     skillP: 0,
-    direction: 'forward',
+    direction: "forward",
     delay,
     step,
 }
@@ -66,7 +60,7 @@ function render() {
             }
             $.prefixP++
         } else {
-            if ($.direction === 'forward') {
+            if ($.direction === "forward") {
                 if ($.skillP < skill.length) {
                     $.text += skill[$.skillP]
                     $.skillP++
@@ -74,7 +68,7 @@ function render() {
                     if ($.delay) {
                         $.delay--
                     } else {
-                        $.direction = 'backward'
+                        $.direction = "backward"
                         $.delay = delay
                     }
                 }
@@ -84,17 +78,20 @@ function render() {
                     $.skillP--
                 } else {
                     $.skillI = ($.skillI + 1) % skills.length
-                    $.direction = 'forward'
+                    $.direction = "forward"
                 }
             }
         }
     }
 
     p.textContent = $.text
-    p.appendChild(getRandomColoredString(
-        $.prefixP < prefix.length ?
-        Math.min(tail, tail + $.prefixP) :
-        Math.min(tail, skill.length - $.skillP)))
+    p.appendChild(
+        getRandomColoredString(
+            $.prefixP < prefix.length
+                ? Math.min(tail, tail + $.prefixP)
+                : Math.min(tail, skill.length - $.skillP),
+        ),
+    )
     setTimeout(render, timeout)
 }
 setTimeout(render, 500)
